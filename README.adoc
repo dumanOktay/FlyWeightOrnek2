@@ -1,0 +1,68 @@
+# FlyWeightOrnek2
+
+* FlyWeight bellek ve hız optimisayonu amaçlayan bir tasarım örüntüsüdür.
+* Aynı görevde olan tekrarlı objelerin bellekte fazladan yer kaplamaması için oluştulan tasarım örüntüsüdür.
+* Basit haliyle düşüncek olursak ilk olarak  objenin interfaceni barındıran bir static hashmap oluşturulur. yeni nesneye ihtiyaç olduğında hashmap e bakılır
+eğer hashmap nesnenin türünü içeriyorsa hashmapten  nesne örneği döner, Eğer hashmapte gelen key ile nesne bulunmuyorsa nesneden yeni bir ornek oluştulur ve hasmape gelen key ile eklenir.
+yeni isteklerde bu nesne döner
+
+* Bu sayede bellekte fazladan yer açılmaz.
+* yeni nesnelerler oluşmadığından hız artar,
+
+
+* Aşagıda Java da  ornegi bulunmaktadır,
+* Standart yontem ile 4197 mili saniye
+
+
+[source, java]
+--
+        for (int i = 0; i < 1000; i++) {
+
+            for (String fileName : fileNames) {
+
+
+                String content = "";
+                try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+
+                    String sCurrentLine;
+
+                    while ((sCurrentLine = br.readLine()) != null) {
+                        content += sCurrentLine;
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(content);
+--
+
+* Yeni nsene oluşturma yontemiyle 4046 milisaniye
+
+[source,java]
+--
+  for (int i = 0; i < 1000; i++) {
+
+            for (String fileName : fileNames) {
+            ***
+            
+             MyFile myFile = new MyFile(fileName);
+                myFile.printContent();
+
+
+--
+
+Flyweight ile 838 mili saniye
+
+[source,java]
+--
+  for (int i = 0; i < 1000; i++) {
+
+            for (String fileName : fileNames) {
+            ***
+            
+             MyFile myFile = FileFactory.getMyFile(fileName);
+                myFile.printContent();
+
+
+
+--
