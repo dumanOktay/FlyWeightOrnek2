@@ -1,0 +1,92 @@
+Java platform
+Main articles: Java (software platform) and Java virtual machine
+
+One design goal of Java is portability, which means that programs written for the Java platform must run similarly on any combination of hardware and operating system with adequate runtime support. This is achieved by compiling the Java language code to an intermediate representation called Java bytecode, instead of directly to architecture-specific machine code. Java bytecode instructions are analogous to machine code, but they are intended to be executed by a virtual machine (VM) written specifically for the host hardware. End users commonly use a Java Runtime Environment (JRE) installed on their own machine for standalone Java applications, or in a web browser for Java applets.
+
+Standard libraries provide a generic way to access host-specific features such as graphics, threading, and networking.
+
+The use of universal bytecode makes porting simple. However, the overhead of interpreting bytecode into machine instructions makes interpreted programs almost always run more slowly than native executables. However, just-in-time (JIT) compilers that compile bytecodes to machine code during runtime were introduced from an early stage. Java itself is platform-independent, and is adapted to the particular platform it is to run on by a Java virtual machine for it, which translates the Java bytecode into the platform's machine language.[39]
+
+Implementations
+See also: Free Java implementations
+Oracle Corporation is the current owner of the official implementation of the Java SE platform, following their acquisition of Sun Microsystems on January 27, 2010. This implementation is based on the original implementation of Java by Sun. The Oracle implementation is available for Microsoft Windows (still works for XP, while only later versions currently officially supported), Mac OS X, Linux and Solaris. Because Java lacks any formal standardization recognized by Ecma International, ISO/IEC, ANSI, or other third-party standards organization, the Oracle implementation is the de facto standard.
+
+The Oracle implementation is packaged into two different distributions: The Java Runtime Environment (JRE) which contains the parts of the Java SE platform required to run Java programs and is intended for end users, and the Java Development Kit (JDK), which is intended for software developers and includes development tools such as the Java compiler, Javadoc, Jar, and a debugger.
+
+OpenJDK is another notable Java SE implementation that is licensed under the GNU GPL. The implementation started when Sun began releasing the Java source code under the GPL. As of Java SE 7, OpenJDK is the official Java reference implementation.
+
+The goal of Java is to make all implementations of Java compatible. Historically, Sun's trademark license for usage of the Java brand insists that all implementations be "compatible". This resulted in a legal dispute with Microsoft after Sun claimed that the Microsoft implementation did not support RMI or JNI and had added platform-specific features of their own. Sun sued in 1997, and in 2001 won a settlement of US$20 million, as well as a court order enforcing the terms of the license from Sun.[40] As a result, Microsoft no longer ships Java with Windows.
+
+Platform-independent Java is essential to Java EE, and an even more rigorous validation is required to certify an implementation. This environment enables portable server-side applications.
+
+Performance
+Main article: Java performance
+Programs written in Java have a reputation for being slower and requiring more memory than those written in C++.[41][42] However, Java programs' execution speed improved significantly with the introduction of just-in-time compilation in 1997/1998 for Java 1.1,[43] the addition of language features supporting better code analysis (such as inner classes, the StringBuilder class, optional assertions, etc.), and optimizations in the Java virtual machine, such as HotSpot becoming the default for Sun's JVM in 2000. With Java 1.5, the performance was improved with the addition of the java.util.concurrent package, including Lock free implementations of the ConcurrentMaps and other multi-core collections, and it was improved further Java 1.6.
+
+Some platforms offer direct hardware support for Java; there are microcontrollers that can run Java in hardware instead of a software Java virtual machine, and ARM based processors can have hardware support for executing Java bytecode through their Jazelle option (while its support is mostly dropped in current implementations of ARM).
+
+Automatic memory management
+Java uses an automatic garbage collector to manage memory in the object lifecycle. The programmer determines when objects are created, and the Java runtime is responsible for recovering the memory once objects are no longer in use. Once no references to an object remain, the unreachable memory becomes eligible to be freed automatically by the garbage collector. Something similar to a memory leak may still occur if a programmer's code holds a reference to an object that is no longer needed, typically when objects that are no longer needed are stored in containers that are still in use. If methods for a nonexistent object are called, a "null pointer exception" is thrown.[44][45]
+
+One of the ideas behind Java's automatic memory management model is that programmers can be spared the burden of having to perform manual memory management. In some languages, memory for the creation of objects is implicitly allocated on the stack, or explicitly allocated and deallocated from the heap. In the latter case the responsibility of managing memory resides with the programmer. If the program does not deallocate an object, a memory leak occurs. If the program attempts to access or deallocate memory that has already been deallocated, the result is undefined and difficult to predict, and the program is likely to become unstable and/or crash. This can be partially remedied by the use of smart pointers, but these add overhead and complexity. Note that garbage collection does not prevent "logical" memory leaks, i.e., those where the memory is still referenced but never used.
+
+Garbage collection may happen at any time. Ideally, it will occur when a program is idle. It is guaranteed to be triggered if there is insufficient free memory on the heap to allocate a new object; this can cause a program to stall momentarily. Explicit memory management is not possible in Java.
+
+Java does not support C/C++ style pointer arithmetic, where object addresses and unsigned integers (usually long integers) can be used interchangeably. This allows the garbage collector to relocate referenced objects and ensures type safety and security.
+
+As in C++ and some other object-oriented languages, variables of Java's primitive data types are either stored directly in fields (for objects) or on the stack (for methods) rather than on the heap, as is commonly true for non-primitive data types (but see escape analysis). This was a conscious decision by Java's designers for performance reasons.
+
+Java contains multiple types of garbage collectors. By default,[citation needed] HotSpot uses the parallel scavenge garbage collector. However, there are also several other garbage collectors that can be used to manage the heap. For 90% of applications in Java, the Concurrent Mark-Sweep (CMS) garbage collector is sufficient.[46] Oracle aims to replace CMS with the Garbage-First collector (G1).[47]
+
+Syntax
+Main article: Java syntax
+The syntax of Java is largely influenced by C++. Unlike C++, which combines the syntax for structured, generic, and object-oriented programming, Java was built almost exclusively as an object-oriented language.[16] All code is written inside classes, and every data item is an object, with the exception of the primitive data types, i.e. integers, floating-point numbers, boolean values, and characters, which are not objects for performance reasons. Java reuses some popular aspects of C++ (such as printf() method).
+
+Unlike C++, Java does not support operator overloading[48] or multiple inheritance for classes, though multiple inheritance is supported for interfaces.[49] This simplifies the language and aids in preventing potential errors and anti-pattern design.[citation needed]
+
+Java uses comments similar to those of C++. There are three different styles of comments: a single line style marked with two slashes (//), a multiple line style opened with /* and closed with */, and the Javadoc commenting style opened with /** and closed with */. The Javadoc style of commenting allows the user to run the Javadoc executable to create documentation for the program.
+
+Example:
+
+// This is an example of a single line comment using two slashes
+
+/* This is an example of a multiple line comment using the slash and asterisk.
+ This type of comment can be used to hold a lot of information or deactivate
+ code, but it is very important to remember to close the comment. */
+
+package fibsandlies;
+import java.util.HashMap;
+
+/**
+ * This is an example of a Javadoc comment; Javadoc can compile documentation
+ * from this text. Javadoc comments must immediately precede the class, method, or field being documented.
+ */
+public class FibCalculator extends Fibonacci implements Calculator {
+    private static Map<Integer, Integer> memoized = new HashMap<Integer, Integer>();
+
+    /*
+     * The main method written as follows is used by the JVM as a starting point for the program.
+     */
+    public static void main(String[] args) {
+        memoized.put(1, 1);
+        memoized.put(2, 1);
+        System.out.println(fibonacci(12)); //Get the 12th Fibonacci number and print to console
+    }
+
+    /**
+     * An example of a method written in Java, wrapped in a class.
+     * Given a non-negative number FIBINDEX, returns
+     * the Nth Fibonacci number, where N equals FIBINDEX.
+     * @param fibIndex The index of the Fibonacci number
+     * @return The Fibonacci number
+     */
+    public static int fibonacci(int fibIndex) {
+        if (memoized.containsKey(fibIndex)) {
+            return memoized.get(fibIndex);
+        } else {
+            int answer = fibonacci(fibIndex - 1) + fibonacci(fibIndex - 2);
+            memoized.put(fibIndex, answer);
+            return answer;
+        }
+    }
+}
